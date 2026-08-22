@@ -1,0 +1,232 @@
+/* ===== GENERAL ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Flash message animation */
+.flash-message {
+  animation: fadeOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+body {
+font-family: Arial, Helvetica, sans-serif;
+background-color: #f4f6f9;
+color: #333;
+padding: 40px;
+}
+
+.flash-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+  font-weight: bold;
+}
+
+.book-card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.book-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.book-actions a {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 8px;
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+
+.book-actions a:hover {
+    background-color: #d2e3fc;
+}
+
+.book-actions button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #fde8e8;
+    color: #c62828;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+
+.book-actions button:hover {
+    background-color: #f8d0d0;
+}
+
+.add-book {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.add-book input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.add-book button {
+    margin-top: 10px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+
+.add-book button:hover {
+    opacity: 0.85;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+    color: #666;
+}
+
+@media (max-width: 600px) {
+
+
+    body {
+        padding: 20px;
+    }
+
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+
+    .header p {
+        font-size: 16px;
+    }
+
+
+    .book-card {
+        padding: 16px;
+    }
+
+
+    .book-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .book-actions a,
+    .book-actions button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #1a73e8;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .nav-links {
+        gap: 15px;
+    }
+}

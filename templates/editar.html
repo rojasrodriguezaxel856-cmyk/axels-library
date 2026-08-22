@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar libro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="{{ url_for('inicio') }}" class="logo">
+        📚 Axel's Library
+    </a>
+    <div class="nav-links">
+        <a href="{{ url_for('inicio') }}">Inicio</a>
+        <a href="{{ url_for('about') }}">Acerca de</a>
+    </div>
+</nav>
+
+<main class="container">
+    <header class="header">
+        <h1>✏️ Editar libro</h1>
+    </header>
+
+    <section class="add-book">
+        <form action="{{ url_for('actualizar', libro_id=libro[0]) }}" method="POST">
+
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" value="{{ libro[1] }}" required>
+
+            <label for="autor">Autor</label>
+            <input type="text" id="autor" name="autor" value="{{ libro[2] }}" required>
+
+            <button type="submit">💾 Guardar cambios</button>
+        </form>
+
+        <p style="margin-top: 20px; text-align: center;">
+            <a href="{{ url_for('inicio') }}" style="color: #1a73e8; text-decoration: none; font-weight: bold;">← Volver al inicio</a>
+        </p>
+    </section>
+</main>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

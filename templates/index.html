@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Axel's Library</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+```
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="{{ url_for('inicio') }}" class="logo">
+        📚 Axel's Library
+    </a>
+
+    <div class="nav-links">
+        <a href="{{ url_for('inicio') }}">Inicio</a>
+        <a href="{{ url_for('about') }}">Acerca de</a>
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <header class="header">
+        <h1>📚 Axel's Library</h1>
+        <p>Mi biblioteca personal</p>
+    </header>
+
+    {% with mensajes = get_flashed_messages() %}
+
+
+        {% if mensajes %}
+
+
+            {% for mensaje in mensajes %}
+
+
+                <div id="flash-message" class="flash-message">{{ mensaje }}</div>
+
+
+            {% endfor %}
+
+
+        {% endif %}
+
+
+    {% endwith %}
+
+    <section class="add-book">
+
+        <h2>Agregar libro</h2>
+
+        <form action="{{ url_for('agregar') }}" method="POST">
+
+            <input
+                type="text"
+                name="titulo"
+                placeholder="Título del libro"
+                required>
+
+            <input
+                type="text"
+                name="autor"
+                placeholder="Autor"
+                required>
+
+            <button type="submit">
+                ➕ Agregar Libro
+            </button>
+
+        </form>
+
+    </section>
+
+    <section class="library">
+
+        <h2>📚 Biblioteca</h2>
+
+        <div class="book-list">
+
+            {% for libro in libros %}
+
+                <article class="book-card">
+
+                    <h3>📖 {{ libro[1] }}</h3>
+
+                    <p>👤 {{ libro[2] }}</p>
+
+                    <div class="book-actions">
+
+                        <a href="{{ url_for('editar', libro_id=libro[0]) }}">
+                            ✏️ Editar
+                        </a>
+
+                        <form
+                            action="{{ url_for('eliminar', libro_id=libro[0]) }}"
+                            method="POST">
+
+                            <button
+                                type="submit"
+                                onclick="return confirmarEliminacion();">
+                                🗑️ Eliminar
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</main>
+```
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
+

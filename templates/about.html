@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('inicio') }}" class="logo">
+            📚 Axel's Library
+        </a>
+        <div class="nav-links">
+            <a href="{{ url_for('inicio') }}">Inicio</a>
+            <a href="{{ url_for('about') }}">Acerca de</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>ℹ️ Acerca de mi_primera_web</h1>
+        </header>
+
+        <section class="add-book">
+            <h2>📖 ¿Qué es esto?</h2>
+            <p style="margin: 15px 0; line-height: 1.6;">
+                Esta es <strong>mi primera aplicación web con Flask</strong>.
+            </p>
+            <p style="margin: 15px 0; line-height: 1.6;">
+                Es un gestor de biblioteca personal donde puedo:
+            </p>
+            <ul style="margin: 15px 0 15px 30px; line-height: 1.8;">
+                <li>➕ Agregar libros con título y autor</li>
+                <li>✏️ Editar la información de libros</li>
+                <li>🗑️ Eliminar libros de mi biblioteca</li>
+                <li>📚 Ver todos mis libros en una lista</li>
+            </ul>
+
+            <h3 style="margin-top: 25px;">🛠️ Tecnologías utilizadas:</h3>
+            <ul style="margin: 15px 0 15px 30px; line-height: 1.8;">
+                <li><strong>Backend:</strong> Python + Flask</li>
+                <li><strong>Base de datos:</strong> SQLite</li>
+                <li><strong>Frontend:</strong> HTML + CSS + JavaScript</li>
+            </ul>
+
+            <p style="margin-top: 25px; text-align: center;">
+                <a href="{{ url_for('inicio') }}" style="color: #1a73e8; text-decoration: none; font-weight: bold;">← Volver al inicio</a>
+            </p>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
