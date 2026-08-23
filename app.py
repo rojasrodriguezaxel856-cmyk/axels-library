@@ -10,14 +10,20 @@ from database import (
     obtener_libro,
     actualizar_libro,
     eliminar_libro,
+    buscar_libros,
 )
 
 @app.route("/")
 def inicio():
 
-    libros = obtener_libros()
+    buscar = request.args.get("buscar", "").strip()
 
-    return render_template("index.html", libros=libros)
+    if buscar:
+        libros = buscar_libros(buscar)
+    else:
+        libros = obtener_libros()
+
+    return render_template("index.html", libros=libros, buscar=buscar)
 
 
 @app.route("/agregar", methods=["POST"])

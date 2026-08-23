@@ -36,6 +36,16 @@
         <p>Mi biblioteca personal</p>
     </header>
 
+    <form method="GET" action="{{ url_for('inicio') }}" class="search-form">
+        <input
+            type="text"
+            name="buscar"
+            placeholder="🔎 Buscar libros..."
+            value="{{ buscar }}">
+
+        <button type="submit">Buscar</button>
+    </form>
+
     {% with mensajes = get_flashed_messages() %}
 
 

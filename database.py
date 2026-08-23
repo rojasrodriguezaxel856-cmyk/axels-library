@@ -70,3 +70,24 @@ def eliminar_libro(libro_id):
 
     conexion.commit()
     conexion.close()
+
+
+def buscar_libros(query):
+    """Buscar libros por título o autor (case-insensitive).
+    Usa parámetros para evitar inyección y COLLATE NOCASE para ignorar mayúsculas.
+    """
+    conexion = sqlite3.connect(DB_PATH)
+    cursor = conexion.cursor()
+
+    patrón = f"%{query}%"
+
+    cursor.execute(
+        "SELECT id, titulo, autor FROM libros "
+        "WHERE titulo LIKE ? COLLATE NOCASE OR autor LIKE ? COLLATE NOCASE "
+        "ORDER BY id DESC",
+        (patrón, patrón),
+    )
+
+    libros = cursor.fetchall()
+    conexion.close()
+    return libros
