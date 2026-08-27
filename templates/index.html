@@ -35,13 +35,24 @@
     </header>
 
     <form method="GET" action="{{ url_for('inicio') }}" class="search-form">
+
         <input
             type="text"
             name="buscar"
             placeholder="🔎 Buscar libros..."
-            value="{{ buscar }}">
+            value="{{ buscar }}"
+        >
 
-        <button type="submit">Buscar</button>
+        <button type="submit">
+            Buscar
+        </button>
+
+        {% if buscar %}
+            <a href="{{ url_for('inicio') }}" class="clear-search">
+                ✖ Limpiar
+            </a>
+        {% endif %}
+
     </form>
 
     {% with mensajes = get_flashed_messages() %}
@@ -96,49 +107,68 @@
 
         <div class="book-list">
 
-            {% for libro in libros %}
+{% if libros %}
 
-                <article class="book-card">
+    {% for libro in libros %}
 
-                    <h3>📖 {{ libro[1] }}</h3>
+        <div class="book-card">
 
-                    <p>👤 {{ libro[2] }}</p>
+            <h3>📖 {{ libro[1] }}</h3>
 
-                    <div class="book-actions">
+            <p>👤 {{ libro[2] }}</p>
 
-                        <a href="{{ url_for('editar', libro_id=libro[0]) }}">
-                            ✏️ Editar
-                        </a>
+            <div class="book-actions">
 
-                        <form
-                            action="{{ url_for('eliminar', libro_id=libro[0]) }}"
-                            method="POST">
+                <a href="{{ url_for('editar', libro_id=libro[0]) }}">
+                    ✏️ Editar
+                </a>
 
-                            <button
-                                type="submit"
-                                onclick="return confirmarEliminacion();">
-                                🗑️ Eliminar
-                            </button>
+                <form
+                    action="{{ url_for('eliminar', libro_id=libro[0]) }}"
+                    method="POST">
 
-                        </form>
+                    <button
+                        type="submit"
+                        onclick="return confirmarEliminacion();">
+                        🗑️ Eliminar
+                    </button>
 
-                    </div>
+                </form>
 
-                </article>
+            </div>
 
-            {% else %}
+        </div>
 
-                <p class="empty-library">
-                    {% if buscar %}
-                        📭<br>
-                        No encontramos libros para "{{ buscar }}".
-                    {% else %}
-                        📭<br>
-                        Todavía no hay libros en la biblioteca.
-                    {% endif %}
-                </p>
+    {% endfor %}
 
-            {% endfor %}
+{% else %}
+
+    {% if buscar %}
+
+        <div class="empty-state">
+
+            <h3>📭 No encontramos libros</h3>
+
+            <p>
+                No hay resultados para
+                "<strong>{{ buscar }}</strong>".
+            </p>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>📚 Tu biblioteca está vacía</h3>
+
+            <p>Agrega tu primer libro.</p>
+
+        </div>
+
+    {% endif %}
+
+{% endif %}
 
         </div>
 
