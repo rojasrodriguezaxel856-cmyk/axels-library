@@ -29,12 +29,12 @@ def inicio():
 @app.route("/agregar", methods=["POST"])
 def agregar():
 
-    titulo = request.form.get("titulo")
-    autor = request.form.get("autor")
+    titulo = request.form.get("titulo", "").strip()
+    autor = request.form.get("autor", "").strip()
 
     if not titulo or not autor:
-        # Si faltan datos, no intentar insertar; redirigir a la vista principal
-        return redirect(url_for('inicio'))
+        flash("⚠️ El título y el autor son obligatorios.")
+        return redirect(url_for("inicio"))
 
     agregar_libro(titulo, autor)
 
@@ -56,11 +56,11 @@ def editar(libro_id):
 
 @app.route("/actualizar/<int:libro_id>", methods=["POST"])
 def actualizar(libro_id):
-    titulo = request.form.get("titulo")
-    autor = request.form.get("autor")
+    titulo = request.form.get("titulo", "").strip()
+    autor = request.form.get("autor", "").strip()
     if not titulo or not autor:
-        # Validación mínima: si falta dato, volver al formulario de edición
-        return redirect(url_for('editar', libro_id=libro_id))
+        flash("⚠️ El título y el autor son obligatorios.")
+        return redirect(url_for("editar", libro_id=libro_id))
     actualizar_libro(libro_id, titulo, autor)
     # Mensaje flash para el usuario
     flash("✅ Libro actualizado correctamente.")
