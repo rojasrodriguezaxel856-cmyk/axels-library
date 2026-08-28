@@ -43,6 +43,9 @@ mi_primera_web/
 │   │   └── script.js     # JavaScript
 │   └── img/              # Imágenes
 │
+├── tests/
+│   └── test_app.py       # Pruebas automáticas de Flask
+│
 └── README.md             # Este archivo
 ```
 
@@ -108,6 +111,9 @@ python app.py
 
 # Instalar dependencias
 pip install -r requirements.txt
+
+# Ejecutar las pruebas automáticas
+python -m pytest
 ```
 
 ## 📝 Notas
