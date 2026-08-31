@@ -1,8 +1,10 @@
 import sqlite3
 import os
 
-# Ruta absoluta al archivo de base de datos dentro del proyecto
-DB_PATH = os.path.join(os.path.dirname(__file__), "biblioteca.db")
+DB_PATH = os.environ.get(
+    "DB_PATH",
+    os.path.join(os.path.dirname(__file__), "biblioteca.db")
+)
 
 # Inicializar la base de datos y la tabla si no existen
 def init_db():
