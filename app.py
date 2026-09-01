@@ -1,8 +1,42 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+import os
+
+from flask import Flask, flash, redirect, render_template, request, url_for
+
+
+class Config:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    DEBUG = False
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-me")
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+
+
+config = {
+    "development": DevelopmentConfig,
+    "production": ProductionConfig,
+    "default": DevelopmentConfig,
+}
+
+
+def get_config():
+    env_name = os.environ.get("FLASK_ENV", "development")
+    selected = config.get(env_name, config["development"])
+
+    if env_name == "production" and not selected.SECRET_KEY:
+        raise RuntimeError("SECRET_KEY must be set for production")
+
+    return selected
+
 
 app = Flask(__name__)
-import os
-app.secret_key = os.environ.get('SECRET_KEY', 'dev')
+app.config.from_object(get_config())
 
 from database import (
     obtener_libros,
@@ -85,4 +119,4 @@ def about():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=app.config["DEBUG"])
