@@ -1,95 +1,89 @@
-import sqlite3
 import os
+import sqlite3
 
 DB_PATH = os.environ.get(
     "DB_PATH",
-    os.path.join(os.path.dirname(__file__), "biblioteca.db")
+    os.path.join(os.path.dirname(__file__), "biblioteca.db"),
 )
 
-# Inicializar la base de datos y la tabla si no existen
+
+def _get_connection():
+    return sqlite3.connect(DB_PATH)
+
+
 def init_db():
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS libros (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        titulo TEXT NOT NULL,
-        autor TEXT NOT NULL
-    )
-    """)
-    conexion.commit()
-    conexion.close()
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS libros (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                titulo TEXT NOT NULL,
+                autor TEXT NOT NULL
+            )
+            """
+        )
+        conexion.commit()
+
 
 init_db()
 
 
 def obtener_libros():
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
-
-    cursor.execute("SELECT id, titulo, autor FROM libros ORDER BY id DESC")
-
-    libros = cursor.fetchall()
-
-    conexion.close()
-
-    return libros
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute("SELECT id, titulo, autor FROM libros ORDER BY id DESC")
+        return cursor.fetchall()
 
 
 def agregar_libro(titulo, autor):
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
-    cursor.execute("INSERT INTO libros (titulo, autor) VALUES (?, ?)", (titulo, autor))
-    conexion.commit()
-    conexion.close()
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute(
+            "INSERT INTO libros (titulo, autor) VALUES (?, ?)",
+            (titulo, autor),
+        )
+        conexion.commit()
 
 
-def obtener_libro(id):
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
-    cursor.execute("SELECT id, titulo, autor FROM libros WHERE id = ?", (id,))
-    libro = cursor.fetchone()
-    conexion.close()
-    return libro
+def obtener_libro(libro_id):
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute(
+            "SELECT id, titulo, autor FROM libros WHERE id = ?",
+            (libro_id,),
+        )
+        return cursor.fetchone()
 
 
-def actualizar_libro(id, titulo, autor):
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
-    cursor.execute("UPDATE libros SET titulo = ?, autor = ? WHERE id = ?", (titulo, autor, id))
-    conexion.commit()
-    conexion.close()
+def actualizar_libro(libro_id, titulo, autor):
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute(
+            "UPDATE libros SET titulo = ?, autor = ? WHERE id = ?",
+            (titulo, autor, libro_id),
+        )
+        conexion.commit()
 
 
 def eliminar_libro(libro_id):
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
-
-    cursor.execute(
-        "DELETE FROM libros WHERE id = ?",
-        (libro_id,)
-    )
-
-    conexion.commit()
-    conexion.close()
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
+        cursor.execute("DELETE FROM libros WHERE id = ?", (libro_id,))
+        conexion.commit()
 
 
 def buscar_libros(query):
-    """Buscar libros por título o autor (case-insensitive).
-    Usa parámetros para evitar inyección y COLLATE NOCASE para ignorar mayúsculas.
-    """
-    conexion = sqlite3.connect(DB_PATH)
-    cursor = conexion.cursor()
+    """Buscar libros por título o autor (case-insensitive)."""
+    with _get_connection() as conexion:
+        cursor = conexion.cursor()
 
-    patrón = f"%{query}%"
+        patron = f"%{query}%"
 
-    cursor.execute(
-        "SELECT id, titulo, autor FROM libros "
-        "WHERE titulo LIKE ? COLLATE NOCASE OR autor LIKE ? COLLATE NOCASE "
-        "ORDER BY id DESC",
-        (patrón, patrón),
-    )
-
-    libros = cursor.fetchall()
-    conexion.close()
-    return libros
+        cursor.execute(
+            "SELECT id, titulo, autor FROM libros "
+            "WHERE titulo LIKE ? COLLATE NOCASE OR autor LIKE ? COLLATE NOCASE "
+            "ORDER BY id DESC",
+            (patron, patron),
+        )
+        return cursor.fetchall()
