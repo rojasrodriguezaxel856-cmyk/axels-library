@@ -83,3 +83,55 @@ def test_actualizar_libro():
 
     assert libro_actualizado[1] == "Libro actualizado"
     assert libro_actualizado[2] == "Autor actualizado"
+
+
+def test_editar_libro_get():
+    agregar_libro(
+        "Libro original",
+        "Autor original"
+    )
+
+    cliente = app.test_client()
+
+    respuesta = cliente.get("/editar/1")
+
+    assert respuesta.status_code == 200
+    assert b"Libro original" in respuesta.data
+    assert b"Autor original" in respuesta.data
+
+
+def test_eliminar_libro():
+    agregar_libro(
+        "Libro a borrar",
+        "Autor a borrar"
+    )
+
+    cliente = app.test_client()
+
+    respuesta = cliente.post(
+        "/eliminar/1",
+        follow_redirects=True
+    )
+
+    assert respuesta.status_code == 200
+    assert obtener_libro(1) is None
+
+
+def test_buscar_libros():
+    agregar_libro(
+        "1984",
+        "George Orwell"
+    )
+    agregar_libro(
+        "Clean Code",
+        "Robert C. Martin"
+    )
+
+    cliente = app.test_client()
+
+    respuesta = cliente.get("/?buscar=1984")
+
+    assert respuesta.status_code == 200
+    assert b"1984" in respuesta.data
+    assert b"George Orwell" in respuesta.data
+    assert b"Clean Code" not in respuesta.data
