@@ -1,131 +1,159 @@
-# 📚 Axel's Library - Mi Primera Web
+# Axel's Library
 
-Una aplicación web para gestionar una biblioteca personal, desarrollada con **Flask**, **SQLite** y **JavaScript vanila**.
+Aplicación web para gestionar una biblioteca personal, construida con Flask, SQLite y HTML/CSS/JS.
 
-## ✨ Características
+Este proyecto fue desarrollado como una práctica real de backend, frontend y testing. La app permite administrar libros con operaciones CRUD y además incluye pruebas automatizadas con pytest.
 
-- ✅ Agregar libros con título y autor
-- ✏️ Editar información de libros
-- 🗑️ Eliminar libros con confirmación
-- 📚 Ver lista completa de libros
-- ⏱️ Mensajes de notificación que desaparecen automáticamente
-- 📱 Diseño responsivo (funciona en móvil y desktop)
+## Características
 
-## 🛠️ Tecnologías
+- Agregar libros con título y autor
+- Editar información existente
+- Eliminar libros
+- Buscar por título o autor
+- Diseño responsivo
+- Mensajes flash para feedback visual
+- Base de datos SQLite aislada para pruebas
+- Suite de pruebas automatizadas con pytest
 
-| Tecnología | Uso |
-|-----------|-----|
-| **Python** | Lenguaje de programación |
-| **Flask** | Framework web backend |
-| **SQLite** | Base de datos |
-| **HTML** | Estructura |
-| **CSS** | Estilos y diseño responsivo |
-| **JavaScript** | Interactividad (DOM manipulation) |
+## Tecnologías
 
-## 📁 Estructura del Proyecto
+- Python
+- Flask
+- SQLite
+- HTML
+- CSS
+- JavaScript
+- pytest
 
-```
+## Estructura del proyecto
+
+```text
 mi_primera_web/
-├── app.py                 # Aplicación principal Flask
-├── database.py            # Funciones de base de datos
-├── requirements.txt       # Dependencias Python
-├── biblioteca.db          # Base de datos SQLite
-│
-├── templates/             # Archivos HTML
-│   ├── index.html        # Página principal
-│   ├── editar.html       # Página para editar libro
-│   └── about.html        # Página acerca de
-│
-├── static/               # Archivos estáticos
+├── app.py
+├── database.py
+├── conftest.py
+├── .gitignore
+├── .env.example
+├── requirements.txt
+├── README.md
+├── templates/
+│   ├── about.html
+│   ├── editar.html
+│   └── index.html
+├── static/
 │   ├── css/
-│   │   └── style.css     # Estilos CSS
-│   ├── js/
-│   │   └── script.js     # JavaScript
-│   └── img/              # Imágenes
-│
+│   │   └── style.css
+│   └── js/
+│       └── script.js
 ├── tests/
-│   └── test_app.py       # Pruebas automáticas de Flask
-│
-└── README.md             # Este archivo
+│   └── test_app.py
+└── biblioteca.db   # base de datos local de desarrollo
 ```
 
-## 🚀 Instalación y uso
+## Requisitos
 
-### Requisitos previos
-- Python 3.7+
-- pip (gestor de paquetes Python)
+- Python 3.10+
+- pip
 
-### Pasos para ejecutar
+## Instalación
 
-1. **Clonar o descargar el proyecto**
-   ```bash
-   cd mi_primera_web
-   ```
-
-2. **Instalar las dependencias**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Ejecutar la aplicación**
-   ```bash
-   python app.py
-   ```
-
-4. **Abrir en el navegador**
-   - Ir a: `http://127.0.0.1:5000/`
-
-## 📖 Cómo usar
-
-### Agregar un libro
-1. Ve a la sección "Agregar libro"
-2. Ingresa el título y autor
-3. Haz clic en "➕ Agregar Libro"
-4. Verás una notificación verde que desaparece en 3 segundos
-
-### Editar un libro
-1. Haz clic en "✏️ Editar" en el libro que quieres modificar
-2. Cambia el título o autor
-3. Haz clic en "💾 Guardar cambios"
-
-### Eliminar un libro
-1. Haz clic en "🗑️ Eliminar" en el libro
-2. Confirma que deseas eliminarlo
-3. El libro se borrará inmediatamente
-
-## 🎓 Lo que aprendí
-
-Este proyecto fue mi primer paso en desarrollo web:
-
-- 🐍 **Python con Flask**: Cómo crear un servidor web
-- 🗄️ **SQLite**: Cómo crear y consultar bases de datos
-- 🌐 **HTML/CSS**: Estructura y estilos web
-- ⚡ **JavaScript**: Manipulación del DOM y eventos
-- 🎨 **Diseño responsivo**: Cómo hacer apps que se adapten a todos los tamaños de pantalla
-
-## 🔧 Comandos útiles
+1. Clona el repositorio:
 
 ```bash
-# Ejecutar la app (modo desarrollo con debug)
-python app.py
-
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Ejecutar las pruebas automáticas
-python -m pytest
+git clone <url-del-repositorio>
+cd mi_primera_web
 ```
 
-## 📝 Notas
+2. Crea un entorno virtual (opcional pero recomendado):
 
-- La base de datos `biblioteca.db` se crea automáticamente al ejecutar la app
-- Los mensajes de flash desaparecen después de 3 segundos
-- Los libros se ordenan por ID descendente (más nuevos primero)
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-## 👨‍💻 Autor
+3. Instala dependencias:
 
-Axel - Mi primera aplicación web 🚀
+```bash
+pip install -r requirements.txt
+```
 
----
+4. Crea un archivo `.env` a partir del ejemplo:
 
-**Hecho con ❤️ y mucho JavaScript**
+```bash
+copy .env.example .env
+```
+
+Contenido sugerido:
+
+```env
+SECRET_KEY=change-this-secret-key
+FLASK_ENV=development
+```
+
+## Cómo ejecutar la app
+
+```bash
+python app.py
+```
+
+Abre en el navegador:
+
+```text
+http://127.0.0.1:5000/
+```
+
+## Cómo ejecutar las pruebas
+
+```bash
+py -m pytest -v
+```
+
+Resultado esperado:
+
+```text
+7 passed
+```
+
+## Funcionalidades principales
+
+### Inicio
+La página principal lista todos los libros disponibles y permite buscar por título o autor.
+
+### Agregar libro
+Se envía un formulario con título y autor. Si faltan datos, se muestra un mensaje flash.
+
+### Editar libro
+Se accede a la ruta `GET /editar/<id>` y luego se envían los cambios mediante `POST /actualizar/<id>`.
+
+### Eliminar libro
+Se elimina el registro mediante una petición `POST` a `/eliminar/<id>`.
+
+### Búsqueda
+La app filtra libros por texto ingresado en la barra de búsqueda.
+
+## Seguridad
+
+- `SECRET_KEY` se configura por entorno
+- `DEBUG` está deshabilitado en producción
+- No se suben variables sensibles a Git
+- La base de datos de pruebas se separa de la real con `DB_PATH`
+
+## Estado del proyecto
+
+Este proyecto ya tiene:
+
+- aplicación web funcional
+- CRUD completo
+- búsquedas
+- diseño responsivo
+- tests automatizados
+- configuración segura para desarrollo y producción
+- `.gitignore` para evitar archivos temporales y bases de datos locales
+
+## Autor
+
+Axel
+
+## Nota
+
+Este proyecto representa una base sólida para portfolio: combina backend, frontend, base de datos, testing y buenas prácticas básicas de desarrollo profesional.
