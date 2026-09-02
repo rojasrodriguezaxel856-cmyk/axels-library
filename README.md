@@ -47,7 +47,7 @@ mi_primera_web/
 │       └── script.js
 ├── tests/
 │   └── test_app.py
-└── biblioteca.db   # base de datos local de desarrollo
+└── .pytest_cache/   # ignorado por Git
 ```
 
 ## Requisitos
@@ -89,6 +89,8 @@ Contenido sugerido:
 SECRET_KEY=change-this-secret-key
 FLASK_ENV=development
 ```
+
+`FLASK_ENV` es la variable que usa la app para decidir entre configuración de desarrollo y producción.
 
 ## Cómo ejecutar la app
 
